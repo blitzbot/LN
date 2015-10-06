@@ -27,3 +27,5 @@
 3	5	9	dezanove
 3	6	2	meio
 6	5	eps	dia
+5	7	:	eps
+
