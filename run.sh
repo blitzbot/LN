@@ -1,14 +1,15 @@
 #!/bin/bash
 
-rm -f hours.fst
-rm -f hours.pdf
-rm -f example1.fst result1.pdf
+sh clean.sh
 
-fstcompile --isymbols=data.sym --osymbols=data.sym  transdutor.txt  > hours.fst
-fstdraw  --isymbols=data.sym --osymbols=data.sym  hours.fst | dot -Tpdf > hours.pdf
+fstcompile --isymbols=data.sym --osymbols=data.sym  transdutor.txt  > transdutor.fst
+fstdraw  --isymbols=data.sym --osymbols=data.sym  transdutor.fst | dot -Tpdf > transdutor.pdf
 
 # Testes
-fstcompile --isymbols=data.sym --osymbols=data.sym  example1.txt  > example1.fst
+fstcompile --isymbols=data.sym --osymbols=data.sym  tests/12_30.txt  > tests/12_30.fst
+fstcompose tests/12_30.fst transdutor.fst > tests/12_30_result.fst
+fstdraw --isymbols=data.sym --osymbols=data.sym  tests/12_30_result.fst | dot -Tpdf > tests/12_30_result.pdf
 
-fstcompose example1.fst hours.fst > result1.fst
-fstdraw --isymbols=data.sym --osymbols=data.sym  result1.fst | dot -Tpdf > result1.pdf
+fstcompile --isymbols=data.sym --osymbols=data.sym  tests/00_15.txt  > tests/00_15.fst
+fstcompose tests/00_15.fst transdutor.fst > tests/00_15_result.fst
+fstdraw --isymbols=data.sym --osymbols=data.sym  tests/00_15_result.fst | dot -Tpdf > tests/00_15_result.pdf
