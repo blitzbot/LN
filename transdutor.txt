@@ -34,12 +34,53 @@
 9	11	1	onze
 9	12	2	doze
 9	13	3	treze
-9	13	4	catorze
+9	14	4	catorze
 9	15	5	um
 9	16	6	dezasseis
 9	17	7	dezassete
 9	18	8	dezoito
 9	19	9	dezanove
 15	20	eps	quarto
-8	21	0	eps
+7	21	0	eps
 21	22	0	eps
+21	23	eps	e
+8	24	2	vinte
+8	24	4	quarenta
+8	24	5	cinquenta
+8	25	3	eps
+25	26	0	meia
+25	27	eps	trinta
+27	23	eps	e
+24	28	0	eps
+24	23	eps	e
+23	29	1	um
+23	30	2	dois
+23	31	3	tres
+23	32	4	quatro
+23	33	5	cinco
+23	34	6	seis
+23	35	7	sete
+23	36	8	oito
+23	37	9	nove
+10
+11
+12
+13
+14
+20
+16
+17
+18
+19
+28
+26
+22
+29
+30
+31
+32
+33
+34
+35
+36
+37
