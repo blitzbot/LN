@@ -2,17 +2,21 @@
 
 sh clean.sh
 
-fstcompile --isymbols=data.sym --osymbols=data.sym  transdutor.txt  > transdutor.fst
-fstdraw  --isymbols=data.sym --osymbols=data.sym  transdutor.fst | dot -Tpdf > transdutor.pdf
+fstcompile --isymbols=data.sym --osymbols=data.sym  transdutor.txt  > horas.fst
+fstdraw  --isymbols=data.sym --osymbols=data.sym  horas.fst | dot -Tpdf > horas.pdf
 
 # Invert
-fstinvert transdutor.fst > invertTransdutor.fst
-fstdraw  --isymbols=data.sym --osymbols=data.sym  invertTransdutor.fst | dot -Tpdf > invertTransdutor.pdf
+fstinvert horas.fst > horas-inv.fst
+fstdraw  --isymbols=data.sym --osymbols=data.sym  horas-inv.fst | dot -Tpdf > horas-inv.pdf
 
-#fstcompile --isymbols=data.sym --osymbols=data.sym  tests/12_30.txt  > tests/12_30.fst
-#fstcompose tests/12_30.fst transdutor.fst > tests/12_30_result.fst
-#fstdraw --isymbols=data.sym --osymbols=data.sym  tests/12_30_result.fst | dot -Tpdf > tests/12_30_result.pdf
+fstcompile --isymbols=data.sym --osymbols=data.sym  testes/12_30.txt  > testes/12_30.fst
+fstcompose testes/12_30.fst horas.fst > testes/12_30_result.fst
+fstdraw --isymbols=data.sym --osymbols=data.sym  testes/12_30_result.fst | dot -Tpdf > testes/pdfs/12_30_result.pdf
 
-#fstcompile --isymbols=data.sym --osymbols=data.sym  tests/00_15.txt  > tests/00_15.fst
-#fstcompose tests/00_15.fst transdutor.fst > tests/00_15_result.fst
-#fstdraw --isymbols=data.sym --osymbols=data.sym  tests/00_15_result.fst | dot -Tpdf > tests/00_15_result.pdf
+fstcompile --isymbols=data.sym --osymbols=data.sym  testes/02_15.txt  > testes/02_15.fst
+fstcompose testes/02_15.fst horas.fst > testes/02_15_result.fst
+fstdraw --isymbols=data.sym --osymbols=data.sym  testes/02_15_result.fst | dot -Tpdf > testes/pdfs/02_15_result.pdf
+
+fstcompile --isymbols=data.sym --osymbols=data.sym  testes/tres_quarenta_cinco.txt  > testes/tres_quarenta_cinco.fst
+fstcompose testes/tres_quarenta_cinco.fst horas-inv.fst > testes/tres_quarenta_cinco_result.fst
+fstdraw --isymbols=data.sym --osymbols=data.sym  testes/tres_quarenta_cinco_result.fst | dot -Tpdf > testes/pdfs/tres_quarenta_cinco_result.pdf
