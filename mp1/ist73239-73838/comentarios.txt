@@ -1,0 +1,4 @@
+No nosso projecto, o transdutor horas reconhece as horas com o formato hh:mm, em que hh está entre 0 e 23, e mm entre 0 e 59. Este transdutor não reconhece horas em formatos diferentes, como por exemplo 3:12 ou 12:5. As horas estão de 0 a 23, para haver distinção entre manhã e tarde sem usarmos "manhã" e "tarde".
+No caso do transdutor horas-inv, este recebe as horas escritas como "duas e um quarto" e aceita as horas com as mesmas condições explicadas em cima mas em lingua natural. No nosso projecto "meia noite" não será reconhecido por não termos acesso ao simbolo "noite".
+
+Para criar o transdutor horas a partir do ficheiro transdutor.txt, o horas-inv a partir do horas, os respectivos pdfs com os transdutores representados e fazer os testes aos transdutores presentes na pasta testes é preciso apenas executar o script run.sh (sh run.sh). O resultado dos testes - composição entre o transdutor e o teste - encontra-se em pdf na directoria testes/pdfs.
