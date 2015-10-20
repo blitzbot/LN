@@ -1,6 +1,0 @@
-0	1	tres	tres
-1	2	e	e
-2	3	quarenta	quarenta
-3	4	e	e
-4	5	cinco	cinco
-5
