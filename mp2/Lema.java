@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileNotFoundException;
 import java.util.HashMap;
-import java.util.StringTokenizer;
 
 public class Lema {
 	//foram - ir vs ser
@@ -40,9 +39,8 @@ public class Lema {
 		try {
 			BufferedReader br = new BufferedReader(new FileReader(path));
 			String line;
-			String[] tokens = new String[3];
 			while ((line = br.readLine()) != null) {
-       			StringTokenizer st = new StringTokenizer(line);
+				String[] tokens = line.split("\\s");
        			map.put(new Bigram(tokens[0], tokens[1]), Integer.parseInt(tokens[2]));
 			}
 		} catch (FileNotFoundException e) {
