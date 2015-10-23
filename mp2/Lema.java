@@ -20,7 +20,6 @@ public class Lema {
 
 
 	public static void main(String[] args) {
-		System.out.println("Hello World!");
 		if (args.length > 0) { //TODO: ver dos argumentos, casos de erro etc..
 			foramIrBigrams = readBigrams(args[0]);
 			foramSerBigrams = readBigrams(args[1]);
@@ -52,7 +51,20 @@ public class Lema {
 	}
 
 	private static Map<String, Integer> readUnigrams(String path) {
-		return null;
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		try {
+			BufferedReader br = new BufferedReader(new FileReader(path));
+			String line;
+			while ((line = br.readLine()) != null) {
+				String[] tokens = line.split("\\s");
+       			map.put(tokens[0], Integer.parseInt(tokens[1]));
+			}
+		} catch (FileNotFoundException e) {
+			System.err.println("Could not find file with name " + path);
+		} catch (Exception e) {
+			System.err.println(e.getMessage());
+		}
+		return map;
 	}
 
 	private static class Bigram {
