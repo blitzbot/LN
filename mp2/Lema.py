@@ -1,14 +1,25 @@
 # -*- coding: utf-8 -*-
 
 import sys
+import os
 
-def computeLemaBigrams(word, classification1, classification2, test):
-	d1 = readGrams(classification1 + ".bigramas")
-	d2 = readGrams(classification2 + ".bigramas")
+def computeLemaBigrams(word, classification1, classification2, test, smoothing):
+	out = "-outAlisamento" if smoothing else "-out"
+
+	if os.path.exists(test+out):
+		os.remove(test+out)
+
+	c1BigramsPath = classification1 + "Alisamento.bigramas" if smoothing else classification1 + ".bigramas"
+	c2BigramsPath = classification2 + "Alisamento.bigramas" if smoothing else classification2 + ".bigramas"
+	
+	bigrams1 = readGrams(c1BigramsPath)
+	bigrams2 = readGrams(c2BigramsPath)
 
 	#for word count
-	unigrams1 = readGrams(classification1 + ".unigramas")
-	unigrams2 = readGrams(classification2 + ".unigramas")
+	c1UnigramsPath = classification1 + "Alisamento.unigramas" if smoothing else classification1 + ".unigramas"
+	c2UnigramsPath = classification2 + "Alisamento.unigramas" if smoothing else classification2 + ".unigramas"
+	unigrams1 = readGrams(c1UnigramsPath)
+	unigrams2 = readGrams(c2UnigramsPath)
 
 	t = open(test)
 	for line in t:
@@ -25,25 +36,48 @@ def computeLemaBigrams(word, classification1, classification2, test):
 			#w1 w2 w3 where bigram1=w1 w2 and bigram2=w2 w3
 			w1 = bigram1.split()[0]
 			w2 = bigram1.split()[1]
-			w1Count = 0
-			w2Count = 0
+			w1C1Count = 0
+			w1C2Count = 0
+			w2C1Count = 0
+			w2C2Count = 0
 
 			if w1 in unigrams1:
-				w1Count += unigrams1[w1]
+				w1C1Count = unigrams1[w1]
+			else:
+				w1C1Count = unigrams1["UNK"]
+
 			if w1 in unigrams2:
-				w1Count += unigrams2[w1]
+				w1C2Count = unigrams2[w1]
+			else:
+				w1C2Count = unigrams2["UNK"]
+
 			if w2 in unigrams1:
-				w2Count += unigrams1[w2]
+				w2C1Count = unigrams1[w2]
+			else:
+				w2C1Count = unigrams1["UNK"]
+
 			if w2 in unigrams2:
-				w2Count += unigrams2[w2]
+				w2C2Count = unigrams2[w2]
+			else:
+				w2C2Count = unigrams2["UNK"]
 
-			c1Count = getBigramProbability(d1, bigram1, bigram2, w1Count, w2Count)
-			c2Count = getBigramProbability(d2, bigram1, bigram2, w1Count, w2Count)
+			c1P = 0
+			c2P = 0
 
-			writeResult(test+"-out", line.rstrip(), classification1, c1Count, classification2, c2Count)
+			if not smoothing:
+				c1P = getBigramProbability(bigrams1, bigram1, bigram2, w1C1Count, w2C1Count)
+				c2P = getBigramProbability(bigrams2, bigram1, bigram2, w1C2Count, w2C2Count)
+			else:
+				c1P = getBigramProbabilitySmoothing(bigrams1, bigram1, bigram2, w1C1Count, w2C1Count, len(unigrams1))
+				c2P = getBigramProbabilitySmoothing(bigrams2, bigram1, bigram2, w1C2Count, w2C2Count, len(unigrams2))
+
+			writeResult(test+out, line.rstrip(), classification1, c1P, classification2, c2P)
+
 	t.close()
 
 def getBigramProbability(dictionary, bigram1, bigram2, w1Count, w2Count):
+	if w1Count == 0 or w2Count == 0: return 0 #error
+
 	bigram1Count = 0
 	bigram2Count = 0
 
@@ -55,9 +89,23 @@ def getBigramProbability(dictionary, bigram1, bigram2, w1Count, w2Count):
 
 	return (bigram1Count/w1Count) * (bigram2Count/w2Count)
 
+def getBigramProbabilitySmoothing(dictionary, bigram1, bigram2, w1Count, w2Count, vocabularyCount):
+	bigram1Count = 0
+	bigram2Count = 0
+
+	if bigram1 in dictionary:
+		bigram1Count += dictionary[bigram1]
+
+	if bigram2 in dictionary:
+		bigram2Count += dictionary[bigram2]
+
+	return (bigram1Count + 1/(w1Count + vocabularyCount)) * (bigram2Count + 1/(w2Count + vocabularyCount))
+
 def writeResult(fileName, line, c1, c1Count, c2, c2Count):
 	result = ""
-	if c1Count > c2Count:
+	if c1Count == c2Count:
+		result = " || Classification = ?"
+	elif c1Count > c2Count:
 		result = " || Classification = " + c1
 	else:
 		result = " || Classification = " + c2
@@ -65,10 +113,6 @@ def writeResult(fileName, line, c1, c1Count, c2, c2Count):
 	with open(fileName, "a") as f:
 		f.write(line + " || P(" + c1 + ")=" + str(c1Count) + ", P(" + c2 + ")=" + str(c2Count) + result + "\n")
 		f.close
-
-def computeLemaUnigrams(unigramas1, unigramas2, test):
-	return
-
 
 def readGrams(gramsFile):
 	f = open(gramsFile)
@@ -92,7 +136,8 @@ def main(param, test):
 	f.close()
 	#s.remove("n-é-verbo")
 
-	computeLemaBigrams(word, s[0], s[1], test)
+	computeLemaBigrams(word, s[0], s[1], test, False)
+	computeLemaBigrams(word, s[0], s[1], test, True)
 
 if __name__ == '__main__':
 	main(sys.argv[1], sys.argv[2])
