@@ -12,8 +12,8 @@ def computeLemaBigrams(word, classification1, classification2, test):
 
 	t = open(test)
 	for line in t:
-		l = line.rstrip()
-		w = l.split(" ")
+		l = "^ " + line.rstrip() + " $"
+		w = l.split()
 		bigram1 = ""
 		bigram2 = ""
 		for i in range(len(w)):
@@ -23,8 +23,8 @@ def computeLemaBigrams(word, classification1, classification2, test):
 				break
 		if bigram1 != "" and bigram2 != "":
 			#w1 w2 w3 where bigram1=w1 w2 and bigram2=w2 w3
-			w1 = bigram1.split(" ")[0]
-			w2 = bigram1.split(" ")[1]
+			w1 = bigram1.split()[0]
+			w2 = bigram1.split()[1]
 			w1Count = 0
 			w2Count = 0
 
@@ -40,7 +40,7 @@ def computeLemaBigrams(word, classification1, classification2, test):
 			c1Count = getBigramProbability(d1, bigram1, bigram2, w1Count, w2Count)
 			c2Count = getBigramProbability(d2, bigram1, bigram2, w1Count, w2Count)
 
-			writeResult(test+"-out", l, classification1, c1Count, classification2, c2Count)
+			writeResult(test+"-out", line.rstrip(), classification1, c1Count, classification2, c2Count)
 	t.close()
 
 def getBigramProbability(dictionary, bigram1, bigram2, w1Count, w2Count):
@@ -87,7 +87,7 @@ def main(param, test):
 		if i == 0:
 			word = line.rstrip()
 		elif i == 1:
-			s = line.rstrip().split(" ")
+			s = line.rstrip().split()
 			break
 	f.close()
 	#s.remove("n-é-verbo")
