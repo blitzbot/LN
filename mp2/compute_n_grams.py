@@ -48,6 +48,11 @@ def compute_n_grams(inputF, parametrizacao):
 
             counterUnigrams = Counter(unigrams[lema])
             counterBigrams = Counter(bigrams[lema])
+
+            # UNK simbolo para palavras ainda nao vistas
+            counterUnigrams['UNK'] = 0
+            counterBigrams['UNK'] = 0
+
             # v vocabulario
             v = len(counterUnigrams)
 
