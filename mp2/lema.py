@@ -1,13 +1,11 @@
-# -*- coding: utf-8 -*-
-
 import sys
 import os
 
 def computeLemaBigrams(word, classification1, classification2, test, smoothing):
-	out = "-outAlisamento" if smoothing else "-out"
+	out = word + "ResultadoAlisamento.txt" if smoothing else word + "Resultado.txt"
 
-	if os.path.exists(test+out):
-		os.remove(test+out)
+	if os.path.exists(out):
+		os.remove(out)
 
 	c1BigramsPath = classification1 + "Alisamento.bigramas" if smoothing else classification1 + ".bigramas"
 	c2BigramsPath = classification2 + "Alisamento.bigramas" if smoothing else classification2 + ".bigramas"
@@ -71,7 +69,7 @@ def computeLemaBigrams(word, classification1, classification2, test, smoothing):
 				c1P = getBigramProbabilitySmoothing(bigrams1, bigram1, bigram2, w1C1Count, w2C1Count, len(unigrams1))
 				c2P = getBigramProbabilitySmoothing(bigrams2, bigram1, bigram2, w1C2Count, w2C2Count, len(unigrams2))
 
-			writeResult(test+out, line.rstrip(), classification1, c1P, classification2, c2P)
+			writeResult(out, line.rstrip(), classification1, c1P, classification2, c2P)
 
 	t.close()
 
@@ -134,7 +132,6 @@ def main(param, test):
 			s = line.rstrip().split()
 			break
 	f.close()
-	#s.remove("n-é-verbo")
 
 	computeLemaBigrams(word, s[0], s[1], test, False)
 	computeLemaBigrams(word, s[0], s[1], test, True)

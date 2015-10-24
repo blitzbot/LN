@@ -1,4 +1,4 @@
 *.bigramas
 *.unigramas
-*.test-outAlisamento
-*.test-out
+*Resultado.txt
+*ResultadoAlisamento.txt
