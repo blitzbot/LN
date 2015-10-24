@@ -1,0 +1,1 @@
+rm *.unigramas *.bigramas
