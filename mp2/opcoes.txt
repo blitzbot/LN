@@ -1,0 +1,7 @@
+Grupo 09 - Opções:
+Neste trabalho para fazermos o alisamento dos unigramas e bigramas decidimos usar o alisamento de LaPlace, devido à sua simplicidade (não foi dito para usar um específico). Esta técnica de alisamento tem a vatagem de ser simples, mas a desvantagem de mover uma grande porção da massa probabilística dos eventos vistos para os não vistos (não apresenta os melhores resultados).
+Durante o trabalho assumimos que temos dois lemas para a palavra que procuramos (não generaliza para palavras com três lemas possíveis).
+Para cada lema criamos um ficheiro com os unigramas e a respectiva contagem, outro com os bigramas e respectiva contagem, e outros dois que são o equivalente aos primeiros mas com o alisamento aplicado às contagens.
+No caso dos unigramas, decidimos colocar o simbolo UNK, que simboliza o desconhecido no corpus (aquilo que foi visto zero vezes).
+No corpus que usámos para treinar o modelo não contámos com as frases que tinham uma classificação diferente dos lemas disponíveis, ou seja, não contamos com frases cuja classificação fosse n-é-verbo, ou Para ver qual a classificação mais provável para uma frase (ou seja, para a palabra
+Para ver qual a classificação mais provável para uma frase (ou seja, para a palavra nessa frase) consideramos apenas os bigramas que contêm essa palavra e não calculamos a probabilidade da frase inteira. Por este motivo no ficheiro de bigramas também só contamos com aqueles que tenham a palavra que procuramos classificar.
