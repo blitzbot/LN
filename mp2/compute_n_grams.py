@@ -48,10 +48,11 @@ def compute_n_grams(inputF, parametrizacao):
 
             counterUnigrams = Counter(unigrams[lema])
             counterBigrams = Counter(bigrams[lema])
+            smoothUnigrams = {}
+            smoothBigrams = {}
 
             # UNK simbolo para palavras ainda nao vistas
             counterUnigrams['UNK'] = 0
-            counterBigrams['UNK'] = 0
 
             # v vocabulario
             v = len(counterUnigrams)
@@ -59,10 +60,16 @@ def compute_n_grams(inputF, parametrizacao):
             writeNgrams(counterUnigrams, lema, '.unigramas')
             writeNgrams(counterBigrams, lema, '.bigramas')
 
+            # alisamento para cada contagem de unigrama
+            for key in counterUnigrams:
+                smoothUnigrams[key] = laPlace(counterUnigrams[key], n, v)
+            writeNgrams(smoothUnigrams, lema, 'Alisamento.unigramas')
+
             # alisamento para cada contagem de bigrama
             for key in counterBigrams:
-                counterBigrams[key] = laPlace(counterBigrams[key], n, v)
-            writeNgrams(counterBigrams, lema, 'Alisamento.bigramas')
+                cW1 = counterUnigrams[key.split()[0]]
+                smoothBigrams[key] = laPlace(counterBigrams[key], cW1, v)
+            writeNgrams(smoothBigrams, lema, 'Alisamento.bigramas')
 
     f.close()
 
