@@ -76,26 +76,14 @@ def computeLemaBigrams(word, classification1, classification2, test, smoothing):
 def getBigramProbability(dictionary, bigram1, bigram2, w1Count, w2Count):
 	if w1Count == 0 or w2Count == 0: return 0 #error
 
-	bigram1Count = 0
-	bigram2Count = 0
-
-	if bigram1 in dictionary:
-		bigram1Count += dictionary[bigram1]
-
-	if bigram2 in dictionary:
-		bigram2Count += dictionary[bigram2]
+	bigram1Count = dictionary[bigram1] if bigram1 in dictionary else 0
+	bigram2Count = dictionary[bigram2] if bigram2 in dictionary else 0
 
 	return (bigram1Count/w1Count) * (bigram2Count/w2Count)
 
 def getBigramProbabilitySmoothing(dictionary, bigram1, bigram2, w1Count, w2Count, vocabularyCount):
-	bigram1Count = 0
-	bigram2Count = 0
-
-	if bigram1 in dictionary:
-		bigram1Count += dictionary[bigram1]
-
-	if bigram2 in dictionary:
-		bigram2Count += dictionary[bigram2]
+	bigram1Count = dictionary[bigram1] if bigram1 in dictionary else 0
+	bigram2Count = dictionary[bigram2] if bigram2 in dictionary else 0
 
 	return (bigram1Count + 1/(w1Count + vocabularyCount)) * (bigram2Count + 1/(w2Count + vocabularyCount))
 
