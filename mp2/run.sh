@@ -1,7 +1,3 @@
 python compute_n_grams.py
-<<<<<<< HEAD
-python lema.py irAlisamento.unigramas serAlisamento.unigramas irAlisamento.bigramas serAlisamento.bigramas foramParametrizacao.txt foramFrases.txt
-=======
-python lema.py foramParametrizacao.txt foramFrases.txt
-python lema.py lidaParametrizacao.txt lidaFrases.txt
->>>>>>> develop
+python lema.py irUnigramas.txt serUnigramas.txt irBigramas.txt serBigramas.txt foramParametrizacao.txt foramFrases.txt
+python lema.py lidarUnigramas.txt lerUnigramas.txt lidarBigramas.txt lerBigramas.txt lidaParametrizacao.txt lidaFrases.txt
