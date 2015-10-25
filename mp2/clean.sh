@@ -1,1 +1,1 @@
-rm *.unigramas *.bigramas
+rm *.unigramas *.bigramas *ResultadoAlisamento.txt *Resultado.txt

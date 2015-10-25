@@ -116,4 +116,4 @@ def laPlace(count, N, vocabulary):
     return (count + 1.0) * N / (N + vocabulary)
 
 if __name__ == '__main__':
-    compute_n_grams('foramIrSer-3-fred.out', 'foramParametrizacao.txt')
+    compute_n_grams('foramAnotado.out', 'foramParametrizacao.txt')
