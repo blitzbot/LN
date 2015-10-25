@@ -1,23 +1,18 @@
 import sys
 import os
 
-def computeLemaBigrams(word, classification1, classification2, test, smoothing):
-	out = word + "ResultadoAlisamento.txt" if smoothing else word + "Resultado.txt"
+def computeLema(unigramsC1Path, unigramsC2Path, bigramsC1Path, bigramsC2Path, word, classification1, classification2, test):
+	out = word + "Resultado.txt"
 
 	if os.path.exists(out):
 		os.remove(out)
-
-	c1BigramsPath = classification1 + "Alisamento.bigramas" if smoothing else classification1 + ".bigramas"
-	c2BigramsPath = classification2 + "Alisamento.bigramas" if smoothing else classification2 + ".bigramas"
 	
-	bigrams1 = readGrams(c1BigramsPath)
-	bigrams2 = readGrams(c2BigramsPath)
+	bigramsC1 = readGrams(bigramsC1Path)
+	bigramsC2 = readGrams(bigramsC2Path)
 
 	#for word count
-	c1UnigramsPath = classification1 + "Alisamento.unigramas" if smoothing else classification1 + ".unigramas"
-	c2UnigramsPath = classification2 + "Alisamento.unigramas" if smoothing else classification2 + ".unigramas"
-	unigrams1 = readGrams(c1UnigramsPath)
-	unigrams2 = readGrams(c2UnigramsPath)
+	unigrams1 = readGrams(unigramsC1Path)
+	unigrams2 = readGrams(unigramsC2Path)
 
 	t = open(test)
 	for line in t:
@@ -59,27 +54,12 @@ def computeLemaBigrams(word, classification1, classification2, test, smoothing):
 			else:
 				w2C2Count = unigrams2["UNK"]
 
-			c1P = 0
-			c2P = 0
-
-			if not smoothing:
-				c1P = getBigramProbability(bigrams1, bigram1, bigram2, w1C1Count, w2C1Count)
-				c2P = getBigramProbability(bigrams2, bigram1, bigram2, w1C2Count, w2C2Count)
-			else:
-				c1P = getBigramProbabilitySmoothing(bigrams1, bigram1, bigram2, w1C1Count, w2C1Count, len(unigrams1))
-				c2P = getBigramProbabilitySmoothing(bigrams2, bigram1, bigram2, w1C2Count, w2C2Count, len(unigrams2))
+			c1P = getBigramProbabilitySmoothing(bigramsC1, bigram1, bigram2, w1C1Count, w2C1Count, len(unigrams1))
+			c2P = getBigramProbabilitySmoothing(bigramsC2, bigram1, bigram2, w1C2Count, w2C2Count, len(unigrams2))
 
 			writeResult(out, line.rstrip(), classification1, c1P, classification2, c2P)
 
 	t.close()
-
-def getBigramProbability(dictionary, bigram1, bigram2, w1Count, w2Count):
-	if w1Count == 0 or w2Count == 0: return 0 #error
-
-	bigram1Count = dictionary[bigram1] if bigram1 in dictionary else 0
-	bigram2Count = dictionary[bigram2] if bigram2 in dictionary else 0
-
-	return (bigram1Count/w1Count) * (bigram2Count/w2Count)
 
 def getBigramProbabilitySmoothing(dictionary, bigram1, bigram2, w1Count, w2Count, vocabularyCount):
 	bigram1Count = dictionary[bigram1] if bigram1 in dictionary else 0
@@ -109,7 +89,7 @@ def readGrams(gramsFile):
 	f.close()
 	return d
 
-def main(param, test):
+def main(unigramsC1Path, unigramsC2Path, bigramsC1Path, bigramsC2Path, param, test):
 	f = open(param)
 	s = []
 	word = ""
@@ -121,8 +101,7 @@ def main(param, test):
 			break
 	f.close()
 
-	computeLemaBigrams(word, s[0], s[1], test, False)
-	computeLemaBigrams(word, s[0], s[1], test, True)
+	computeLema(unigramsC1Path, unigramsC2Path, bigramsC1Path, bigramsC2Path, word, s[0], s[1], test)
 
 if __name__ == '__main__':
-	main(sys.argv[1], sys.argv[2])
+	main(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4], sys.argv[5], sys.argv[6])
