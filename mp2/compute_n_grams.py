@@ -1,3 +1,7 @@
+#Grupo 09
+#73239 - Frederico Sabino
+#73838 - Francisco Duarte
+
 from collections import Counter
 
 def compute_n_grams(inputF, parametrizacao):

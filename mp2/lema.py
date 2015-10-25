@@ -1,3 +1,7 @@
+#Grupo 09
+#73239 - Frederico Sabino
+#73838 - Francisco Duarte
+
 import sys
 import os
 

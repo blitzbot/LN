@@ -1,3 +1,4 @@
-Qual a frase que lida de traz para a frente, e de frente para traz dá a mesma frase? || P(lidar)=3.1904778506, P(ler)=0.0504652319057 || Classification = lidar
-Rana Sanaullah, ministro provincial que também lida com assuntos de segurança afirmou que a polícia prendeu o dono da casa. || P(lidar)=0.403699357702, P(ler)=0.013367640218 || Classification = lidar
-Quem lida com pessoas complicadas no trabalho, tem maior probabilidade de desenvolver ansiedade. || P(lidar)=0.00881852416894, P(ler)=0.000327937793474 || Classification = lidar
+Qual a frase que lida de traz para a frente , e de frente para traz dá a mesma frase ? || P(lidar)=3.1904778506, P(ler)=0.0504652319057 || Classification = lidar
+A diferença enter a literatura e o jornalismo é que o jornalismo é ílegivel e a literatura não é lida . || P(lidar)=6.09075350565e-05, P(ler)=0.37828606846 || Classification = ler
+Rana Sanaullah , ministro provincial que também lida com assuntos de segurança afirmou que a polícia prendeu o dono da casa . || P(lidar)=0.403699357702, P(ler)=0.013367640218 || Classification = lidar
+Quem lida com pessoas complicadas no trabalho , tem maior probabilidade de desenvolver ansiedade . || P(lidar)=0.00881852416894, P(ler)=0.000327937793474 || Classification = lidar
