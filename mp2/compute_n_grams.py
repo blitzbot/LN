@@ -117,3 +117,4 @@ def laPlace(count, N, vocabulary):
 
 if __name__ == '__main__':
     compute_n_grams('foramAnotado.out', 'foramParametrizacao.txt')
+    compute_n_grams('lidaAnotado.out', 'lidaParametrizacao.txt')
