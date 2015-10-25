@@ -1,0 +1,6 @@
+﻿Que os vossos esforços desafiem as impossibilidades , lembrai-vos de que as grandes coisas do homem foram conquistadas do que parecia impossível . || P(ir)=3.15776177845e-05, P(ser)=4.45526936291e-08 || Classification = ir
+Eles foram a Roma . || P(ir)=0.000536819502337, P(ser)=6.29975087917e-05 || Classification = ir
+Elas foram bonitas . || P(ir)=3.15776177845e-05, P(ser)=4.45526936291e-08 || Classification = ir
+Os Partidos ja foram consistentes . || P(ir)=3.15776177845e-05, P(ser)=4.45526936291e-08 || Classification = ir
+Eles foram atingidos . || P(ir)=3.15776177845e-05, P(ser)=4.45526936291e-08 || Classification = ir
+Mais de cem testemunhas , mineiros , policiais , soldados e crianças , foram entrevistados . || P(ir)=0.001878223817, P(ser)=0.00317469777277 || Classification = ser
